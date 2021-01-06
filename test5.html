@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Me Myself">
+  <title>A first simple slide deck</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./revealjs/dist/reset.css">
+  <link rel="stylesheet" href="./revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./revealjs/dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">A first simple slide deck</h1>
+  <p class="author">Me Myself</p>
+  <p class="date">9th August, 2020</p>
+</section>
+
+<section id="extension-tsp-for-all-50-points-by-genetic-algorithm" class="slide level2">
+<h2>Extension TSP for all 50 points by Genetic Algorithm</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd, random, operator, numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt, time</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span></code></pre></div>
+<p>Read in the provided data file ‘Cluster_dataset.txt’ and store in a pandas dataFrame</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>file_txt <span class="op">=</span> pd.read_csv(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">Users</span><span class="ch">\\</span><span class="st">nobody</span><span class="ch">\\</span><span class="st">Desktop</span><span class="ch">\\</span><span class="st">GA_assign1_CS-AI</span><span class="ch">\\</span><span class="st">Papers</span><span class="ch">\\</span><span class="st">Cluster_dataset.txt&quot;</span>, delimiter<span class="op">=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,names<span class="op">=</span>[<span class="st">&#39;colA&#39;</span>, <span class="st">&#39;colB&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(file_txt)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;  </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">kmeans = KMeans(n_clusters=3).fit(df)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">centroids = kmeans.cluster_centers_</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">print(centroids)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">gp=kmeans.labels_</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">df[&#39;Gp_Label&#39;] = gp </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;</span>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(df[<span class="st">&#39;colA&#39;</span>], df[<span class="st">&#39;colB&#39;</span>], s<span class="op">=</span><span class="dv">50</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.scatter(centroids[:, 0], centroids[:, 1], c=&#39;red&#39;, s=50)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<pre><code>    colA  colB
+0     25    42
+1     23    40
+2     25    40
+3     21    39
+4     22    37
+5     18    36
+6     46    35
+7     16    34
+8     19    34
+9     43    34
+10    41    32
+11    14    31
+12    16    31
+13    38    31
+14    34    29
+15    37    29
+16    16    28
+17    36    28
+18    12    27
+19    14    27
+20    31    27
+21    11    25
+22    28    25
+23    30    24
+24    12    23
+25     9    22
+26    22    22
+27    25    22
+28     8    20
+29    19    20
+30    22    20
+31    19    18
+32    16    17
+33    14    16
+34    11    15
+35     6    13
+36     9    12
+37    12     8
+38    17     8
+39     9     7
+40    21     7
+41    25     7
+42    15     6
+43    29     6
+44    19     5
+45    24     5
+46    28     4
+47    32     4
+48    37     3
+49    41     3</code></pre>
+<figure>
+<img data-src="output_4_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cc<span class="op">=</span>[]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(df)):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    c<span class="op">=</span>(df.loc[i, <span class="st">&#39;colA&#39;</span>],df.loc[i, <span class="st">&#39;colB&#39;</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    cc.append(c)</span></code></pre></div>
+</section>
+<section id="genetic-algorithm-for-symmetric-tsp" class="slide level2">
+<h2>Genetic Algorithm for Symmetric TSP</h2>
+<p>Create class to handle “cities”, ie. the 50 data points</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> City:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x, y):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> x</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.y <span class="op">=</span> y</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> distance(<span class="va">self</span>, city):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        xDis <span class="op">=</span> <span class="bu">abs</span>(<span class="va">self</span>.x <span class="op">-</span> city.x)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        yDis <span class="op">=</span> <span class="bu">abs</span>(<span class="va">self</span>.y <span class="op">-</span> city.y)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        distance <span class="op">=</span> np.sqrt((xDis <span class="op">**</span> <span class="dv">2</span>) <span class="op">+</span> (yDis <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> distance</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;(&quot;</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.x) <span class="op">+</span> <span class="st">&quot;,&quot;</span> <span class="op">+</span> <span class="bu">str</span>(<span class="va">self</span>.y) <span class="op">+</span> <span class="st">&quot;)&quot;</span></span></code></pre></div>
+<p>Create a fitness function</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Fitness:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, route):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.route <span class="op">=</span> route</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.distance <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fitness<span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> routeDistance(<span class="va">self</span>):</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.distance <span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            pathDistance <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(<span class="va">self</span>.route)):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                fromCity <span class="op">=</span> <span class="va">self</span>.route[i]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                toCity <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> i <span class="op">+</span> <span class="dv">1</span> <span class="op">&lt;</span> <span class="bu">len</span>(<span class="va">self</span>.route):</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                    toCity <span class="op">=</span> <span class="va">self</span>.route[i <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                    toCity <span class="op">=</span> <span class="va">self</span>.route[<span class="dv">0</span>]</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                pathDistance <span class="op">+=</span> fromCity.distance(toCity)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.distance <span class="op">=</span> pathDistance</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.distance</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> routeFitness(<span class="va">self</span>):</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.fitness <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.fitness <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="bu">float</span>(<span class="va">self</span>.routeDistance())</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fitness</span></code></pre></div>
+</section>
+<section id="create-the-initial-population" class="slide level2">
+<h2>Create the initial population</h2>
+<p>Route generator</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> createRoute(cityList):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    route <span class="op">=</span> random.sample(cityList, <span class="bu">len</span>(cityList))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> route</span></code></pre></div>
+<p>Create first “population” (list of routes) by use of Route-Generator</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> initialPopulation(popSize, cityList):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    population <span class="op">=</span> []</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, popSize):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        population.append(createRoute(cityList))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> population</span></code></pre></div>
+</section>
+<section id="create-the-genetic-algorithm-with-selection-crossover-and-mutation-functions" class="slide level2">
+<h2>Create the Genetic Algorithm with Selection, Crossover and Mutation functions</h2>
+<p>Ranking routes by sorting individuals fitness score via “Fitness” function call</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rankRoutes(population):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    fitnessResults <span class="op">=</span> {}</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(population)):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        fitnessResults[i] <span class="op">=</span> Fitness(population[i]).routeFitness()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sorted</span>(fitnessResults.items(), key <span class="op">=</span> operator.itemgetter(<span class="dv">1</span>), reverse <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div>
+</section>
+<section id="selection---select-mating-pool" class="slide level2">
+<h2>Selection - select mating pool</h2>
+<p>Create a selection function that will be used to make the list of parent routes</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> selection(popRanked, eliteSize):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    selectionResults <span class="op">=</span> []</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(np.array(popRanked), columns<span class="op">=</span>[<span class="st">&quot;Index&quot;</span>,<span class="st">&quot;Fitness&quot;</span>])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">&#39;cum_sum&#39;</span>] <span class="op">=</span> df.Fitness.cumsum()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">&#39;cum_perc&#39;</span>] <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>df.cum_sum<span class="op">/</span>df.Fitness.<span class="bu">sum</span>()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, eliteSize):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        selectionResults.append(popRanked[i][<span class="dv">0</span>])</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(popRanked) <span class="op">-</span> eliteSize):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        pick <span class="op">=</span> <span class="dv">100</span><span class="op">*</span>random.random()</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(popRanked)):</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> pick <span class="op">&lt;=</span> df.iat[i,<span class="dv">3</span>]:</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                selectionResults.append(popRanked[i][<span class="dv">0</span>])</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selectionResults</span></code></pre></div>
+<p>Create mating pool</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matingPool(population, selectionResults):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    matingpool <span class="op">=</span> []</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(selectionResults)):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        index <span class="op">=</span> selectionResults[i]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        matingpool.append(population[index])</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> matingpool</span></code></pre></div>
+</section>
+<section id="crossover---create-offspring-portion-by-ordered-crossover" class="slide level2">
+<h2>Crossover - create offspring portion by ordered crossover</h2>
+<p>Create a crossover function for two parents to create one child</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> breed(parent1, parent2):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    child <span class="op">=</span> []</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    childP1 <span class="op">=</span> []</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    childP2 <span class="op">=</span> []</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    geneA <span class="op">=</span> <span class="bu">int</span>(random.random() <span class="op">*</span> <span class="bu">len</span>(parent1))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    geneB <span class="op">=</span> <span class="bu">int</span>(random.random() <span class="op">*</span> <span class="bu">len</span>(parent1))</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    startGene <span class="op">=</span> <span class="bu">min</span>(geneA, geneB)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    endGene <span class="op">=</span> <span class="bu">max</span>(geneA, geneB)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(startGene, endGene):</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        childP1.append(parent1[i])</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    childP2 <span class="op">=</span> [item <span class="cf">for</span> item <span class="kw">in</span> parent2 <span class="cf">if</span> item <span class="kw">not</span> <span class="kw">in</span> childP1]</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    child <span class="op">=</span> childP1 <span class="op">+</span> childP2</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> child</span></code></pre></div>
+<p>Create function to run crossover over whole mating pool to generate offspring population</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> breedPopulation(matingpool, eliteSize):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    children <span class="op">=</span> []</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> <span class="bu">len</span>(matingpool) <span class="op">-</span> eliteSize</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    pool <span class="op">=</span> random.sample(matingpool, <span class="bu">len</span>(matingpool))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,eliteSize):</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        children.append(matingpool[i])</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, length):</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        child <span class="op">=</span> breed(pool[i], pool[<span class="bu">len</span>(matingpool)<span class="op">-</span>i<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        children.append(child)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> children</span></code></pre></div>
+</section>
+<section id="mutation---swapping-any-two-cities-in-a-route" class="slide level2">
+<h2>Mutation - swapping any two cities in a route</h2>
+<p>Create function to mutate a single route</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mutate(individual, mutationRate):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> swapped <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(individual)):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(random.random() <span class="op">&lt;</span> mutationRate):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            swapWith <span class="op">=</span> <span class="bu">int</span>(random.random() <span class="op">*</span> <span class="bu">len</span>(individual))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            city1 <span class="op">=</span> individual[swapped]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            city2 <span class="op">=</span> individual[swapWith]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            individual[swapped] <span class="op">=</span> city2</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>            individual[swapWith] <span class="op">=</span> city1</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> individual</span></code></pre></div>
+<p>Create function to run mutation over entire population</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mutatePopulation(population, mutationRate):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    mutatedPop <span class="op">=</span> []</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ind <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(population)):</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        mutatedInd <span class="op">=</span> mutate(population[ind], mutationRate)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        mutatedPop.append(mutatedInd)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mutatedPop</span></code></pre></div>
+</section>
+<section id="function-to-put-all-steps---selection-crossover-and-mutation-together-to-create-the-next-new-generation" class="slide level2">
+<h2>Function to put all steps - selection, crossover and mutation together to create the next new generation</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nextGeneration(currentGen, eliteSize, mutationRate):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    popRanked <span class="op">=</span> rankRoutes(currentGen)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    selectionResults <span class="op">=</span> selection(popRanked, eliteSize)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    matingpool <span class="op">=</span> matingPool(currentGen, selectionResults)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    children <span class="op">=</span> breedPopulation(matingpool, eliteSize)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    nextGeneration <span class="op">=</span> mutatePopulation(children, mutationRate)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nextGeneration</span></code></pre></div>
+</section>
+<section id="final-step-build-up-the-genetic-algorithm" class="slide level2">
+<h2>Final step: build up the genetic algorithm</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    pop <span class="op">=</span> initialPopulation(popSize, population)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Initial distance: &quot;</span> <span class="op">+</span> <span class="bu">str</span>(<span class="dv">1</span> <span class="op">/</span> rankRoutes(pop)[<span class="dv">0</span>][<span class="dv">1</span>]))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, generations):</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        pop <span class="op">=</span> nextGeneration(pop, eliteSize, mutationRate)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Final distance: &quot;</span> <span class="op">+</span> <span class="bu">str</span>(<span class="dv">1</span> <span class="op">/</span> rankRoutes(pop)[<span class="dv">0</span>][<span class="dv">1</span>]))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    bestRouteIndex <span class="op">=</span> rankRoutes(pop)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    bestRoute <span class="op">=</span> pop[bestRouteIndex]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">The bestRoute is : </span><span class="ch">\n</span><span class="st">&quot;</span>,bestRoute)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bestRoute</span></code></pre></div>
+</section>
+<section id="plot-the-progress" class="slide level2">
+<h2>Plot the progress</h2>
+<p>Plot of each GA running cycle - the Distance vs Generation</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run the function to see how distance has improved in each generation</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geneticAlgorithmPlot(population, popSize, eliteSize, mutationRate, generations):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    pop <span class="op">=</span> initialPopulation(popSize, population)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    progress <span class="op">=</span> []</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    progress.append(<span class="dv">1</span> <span class="op">/</span> rankRoutes(pop)[<span class="dv">0</span>][<span class="dv">1</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, generations):</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        pop <span class="op">=</span> nextGeneration(pop, eliteSize, mutationRate)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        progress.append(<span class="dv">1</span> <span class="op">/</span> rankRoutes(pop)[<span class="dv">0</span>][<span class="dv">1</span>])</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    plt.plot(progress)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">&#39;Distance&#39;</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">&#39;Generation&#39;</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div>
+</section>
+<section id="run-the-genetic-algorithm" class="slide level2">
+<h2>Run the genetic algorithm</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cityList<span class="op">=</span>[]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>c_part<span class="op">=</span>[]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(cc)):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    cityList.append(City(x<span class="op">=</span><span class="bu">int</span>(cc[i][<span class="dv">0</span>]), y<span class="op">=</span><span class="bu">int</span>(cc[i][<span class="dv">1</span>])))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">The starting route is :&quot;</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cityList)  </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.time()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>geneticAlgorithm(population<span class="op">=</span>cityList, popSize<span class="op">=</span><span class="dv">100</span>, eliteSize<span class="op">=</span><span class="dv">20</span>, mutationRate<span class="op">=</span><span class="fl">0.005</span>, generations<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">This run time is:&#39;</span>, time.time() <span class="op">-</span> t0, <span class="st">&#39;s&#39;</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>geneticAlgorithmPlot(population<span class="op">=</span>cityList, popSize<span class="op">=</span><span class="dv">100</span>, eliteSize<span class="op">=</span><span class="dv">20</span>, mutationRate<span class="op">=</span><span class="fl">0.005</span>, generations<span class="op">=</span><span class="dv">1000</span>)</span></code></pre></div>
+<pre><code>The starting route is :
+[(25,42), (23,40), (25,40), (21,39), (22,37), (18,36), (46,35), (16,34), (19,34), (43,34), (41,32), (14,31), (16,31), (38,31), (34,29), (37,29), (16,28), (36,28), (12,27), (14,27), (31,27), (11,25), (28,25), (30,24), (12,23), (9,22), (22,22), (25,22), (8,20), (19,20), (22,20), (19,18), (16,17), (14,16), (11,15), (6,13), (9,12), (12,8), (17,8), (9,7), (21,7), (25,7), (15,6), (29,6), (19,5), (24,5), (28,4), (32,4), (37,3), (41,3)]
+Initial distance: 835.4609146297641
+Final distance: 237.8016825226612
+
+The bestRoute is : 
+ [(14,27), (19,34), (22,37), (21,39), (23,40), (25,42), (25,40), (18,36), (16,34), (16,31), (14,31), (16,28), (12,27), (11,25), (12,23), (9,22), (8,20), (6,13), (11,15), (12,8), (9,7), (9,12), (14,16), (16,17), (17,8), (15,6), (19,5), (24,5), (29,6), (37,3), (41,3), (32,4), (28,4), (25,7), (21,7), (19,18), (25,22), (28,25), (31,27), (36,28), (37,29), (38,31), (43,34), (46,35), (41,32), (34,29), (30,24), (22,22), (22,20), (19,20)]
+
+This run time is: 176.76290774345398 s</code></pre>
+<figure>
+<img data-src="output_42_1.png" alt="png" /><figcaption aria-hidden="true">png</figcaption>
+</figure>
+<p>geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.005, generations=1000)</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"></code></pre></div>
+</section>
+    </div>
+  </div>
+
+  <script src="./revealjs/dist/reveal.js"></script>
+
+  // reveal.js plugins
+  <script src="./revealjs/plugin/notes/notes.js"></script>
+  <script src="./revealjs/plugin/search/search.js"></script>
+  <script src="./revealjs/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
