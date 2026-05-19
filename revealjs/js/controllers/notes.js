@@ -40,7 +40,20 @@ export default class Notes {
 
 		if( this.Reveal.getConfig().showNotes && this.element && this.Reveal.getCurrentSlide() && !this.Reveal.print.isPrintingPDF() ) {
 
-			this.element.innerHTML = this.getSlideNotes() || '<span class="notes-placeholder">No notes on this slide.</span>';
+			const currentSlide = this.Reveal.getCurrentSlide();
+			const slideNotes = this.getSlideNotes( currentSlide );
+
+			if( slideNotes ) {
+				if( slideNotes.format === 'text' ) {
+					this.element.textContent = slideNotes.value;
+				}
+				else {
+					this.element.innerHTML = slideNotes.value;
+				}
+			}
+			else {
+				this.element.innerHTML = '<span class="notes-placeholder">No notes on this slide.</span>';
+			}
 
 		}
 
@@ -92,19 +105,25 @@ export default class Notes {
 	 * 2. As an <aside class="notes"> inside of the slide
 	 *
 	 * @param {HTMLElement} [slide=currentSlide]
-	 * @return {(string|null)}
+	 * @return {({ value: string, format: 'text'|'html' }|null)}
 	 */
 	getSlideNotes( slide = this.Reveal.getCurrentSlide() ) {
 
 		// Notes can be specified via the data-notes attribute...
 		if( slide.hasAttribute( 'data-notes' ) ) {
-			return slide.getAttribute( 'data-notes' );
+			return {
+				value: slide.getAttribute( 'data-notes' ),
+				format: 'text'
+			};
 		}
 
 		// ... or using an <aside class="notes"> element
 		let notesElement = slide.querySelector( 'aside.notes' );
 		if( notesElement ) {
-			return notesElement.innerHTML;
+			return {
+				value: notesElement.innerHTML,
+				format: 'html'
+			};
 		}
 
 		return null;
