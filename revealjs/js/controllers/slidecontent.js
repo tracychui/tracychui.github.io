@@ -128,7 +128,9 @@ export default class SlideContent {
 
 					// Support comma separated lists of video sources
 					backgroundVideo.split( ',' ).forEach( source => {
-						video.innerHTML += '<source src="'+ source +'">';
+						const sourceElement = document.createElement( 'source' );
+						sourceElement.setAttribute( 'src', source.trim() );
+						video.appendChild( sourceElement );
 					} );
 
 					backgroundContent.appendChild( video );
