@@ -91,10 +91,13 @@ export default class SlideContent {
 			let sources = 0;
 
 			queryAll( media, 'source[data-src]' ).forEach( source => {
-				source.setAttribute( 'src', source.getAttribute( 'data-src' ) );
+				const sanitizedSrc = this.sanitizeMediaUrl( source.getAttribute( 'data-src' ) );
+				if( sanitizedSrc ) {
+					source.setAttribute( 'src', sanitizedSrc );
+					source.setAttribute( 'data-lazy-loaded', '' );
+					sources += 1;
+				}
 				source.removeAttribute( 'data-src' );
-				source.setAttribute( 'data-lazy-loaded', '' );
-				sources += 1;
 			} );
 
 			// Enable inline video playback in mobile Safari
