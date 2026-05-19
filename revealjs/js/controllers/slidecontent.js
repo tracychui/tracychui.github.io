@@ -19,6 +19,31 @@ export default class SlideContent {
 	}
 
 	/**
+	 * Returns a safe iframe source URL from data-src, or null if invalid.
+	 *
+	 * @param {HTMLIFrameElement} iframe
+	 * @returns {string|null}
+	 */
+	getSafeIframeSource( iframe ) {
+
+		const dataSrc = iframe.getAttribute( 'data-src' );
+		if( !dataSrc ) return null;
+
+		try {
+			const parsedUrl = new URL( dataSrc, window.location.href );
+			if( parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:' ) {
+				return parsedUrl.href;
+			}
+		}
+		catch( e ) {
+			return null;
+		}
+
+		return null;
+
+	}
+
+	/**
 	 * Should the given element be preloaded?
 	 * Decides based on local element attributes and global config.
 	 *
@@ -322,10 +347,11 @@ export default class SlideContent {
 					return;
 				}
 
-				if( el.getAttribute( 'src' ) !== el.getAttribute( 'data-src' ) ) {
+				const safeSrc = this.getSafeIframeSource( el );
+				if( safeSrc && el.getAttribute( 'src' ) !== safeSrc ) {
 					el.removeEventListener( 'load', this.startEmbeddedIframe ); // remove first to avoid dupes
 					el.addEventListener( 'load', this.startEmbeddedIframe );
-					el.setAttribute( 'src', el.getAttribute( 'data-src' ) );
+					el.setAttribute( 'src', safeSrc );
 				}
 			} );
 
