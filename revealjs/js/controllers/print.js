@@ -121,7 +121,7 @@ export default class Print {
 					let numberElement = document.createElement( 'div' );
 					numberElement.classList.add( 'slide-number' );
 					numberElement.classList.add( 'slide-number-pdf' );
-					numberElement.innerHTML = slide.getAttribute( 'data-slide-number' );
+					numberElement.textContent = slide.getAttribute( 'data-slide-number' );
 					page.appendChild( numberElement );
 				}
 
