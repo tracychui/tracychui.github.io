@@ -80,8 +80,11 @@ export default class SlideContent {
 		// Media elements with data-src attributes
 		queryAll( slide, 'img[data-src], video[data-src], audio[data-src], iframe[data-src]' ).forEach( element => {
 			if( element.tagName !== 'IFRAME' || this.shouldPreload( element ) ) {
-				element.setAttribute( 'src', element.getAttribute( 'data-src' ) );
-				element.setAttribute( 'data-lazy-loaded', '' );
+				const sanitizedSrc = this.sanitizeMediaUrl( element.getAttribute( 'data-src' ) );
+				if( sanitizedSrc ) {
+					element.setAttribute( 'src', sanitizedSrc );
+					element.setAttribute( 'data-lazy-loaded', '' );
+				}
 				element.removeAttribute( 'data-src' );
 			}
 		} );
