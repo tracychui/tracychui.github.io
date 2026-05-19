@@ -345,7 +345,7 @@
 					upcomingSlide,
 					layoutLabel,
 					layoutDropdown,
-					pendingCalls = {},
+					pendingCalls = Object.create( null ),
 					lastRevealApiCallId = 0,
 					connected = false;
 
@@ -383,8 +383,11 @@
 							handleStateMessage( data );
 						}
 						else if( data.type === 'return' ) {
-							pendingCalls[data.callId](data.result);
-							delete pendingCalls[data.callId];
+							var callback = pendingCalls[data.callId];
+							if( Object.prototype.hasOwnProperty.call( pendingCalls, data.callId ) && typeof callback === 'function' ) {
+								callback( data.result );
+								delete pendingCalls[data.callId];
+							}
 						}
 					}
 					// Messages sent by the reveal.js inside of the current slide preview
