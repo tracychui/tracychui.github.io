@@ -41,18 +41,21 @@ export default class Notes {
 		if( this.Reveal.getConfig().showNotes && this.element && this.Reveal.getCurrentSlide() && !this.Reveal.print.isPrintingPDF() ) {
 
 			const currentSlide = this.Reveal.getCurrentSlide();
-			const slideNotes = this.getSlideNotes( currentSlide );
 
-			if( slideNotes ) {
-				if( slideNotes.format === 'text' ) {
-					this.element.textContent = slideNotes.value;
-				}
-				else {
-					this.element.innerHTML = slideNotes.value;
-				}
+			// Notes from data-notes are plain text and must never be interpreted as HTML
+			if( currentSlide.hasAttribute( 'data-notes' ) ) {
+				this.element.textContent = currentSlide.getAttribute( 'data-notes' );
 			}
 			else {
-				this.element.innerHTML = '<span class="notes-placeholder">No notes on this slide.</span>';
+				const notesElement = currentSlide.querySelector( 'aside.notes' );
+
+				// Notes from <aside class="notes"> may intentionally contain HTML
+				if( notesElement ) {
+					this.element.innerHTML = notesElement.innerHTML;
+				}
+				else {
+					this.element.innerHTML = '<span class="notes-placeholder">No notes on this slide.</span>';
+				}
 			}
 
 		}
