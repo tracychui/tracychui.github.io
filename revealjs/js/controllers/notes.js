@@ -40,7 +40,20 @@ export default class Notes {
 
 		if( this.Reveal.getConfig().showNotes && this.element && this.Reveal.getCurrentSlide() && !this.Reveal.print.isPrintingPDF() ) {
 
-			this.element.innerHTML = this.getSlideNotes() || '<span class="notes-placeholder">No notes on this slide.</span>';
+			const currentSlide = this.Reveal.getCurrentSlide();
+			const slideNotes = this.getSlideNotes( currentSlide );
+
+			if( slideNotes ) {
+				if( currentSlide.hasAttribute( 'data-notes' ) ) {
+					this.element.textContent = slideNotes;
+				}
+				else {
+					this.element.innerHTML = slideNotes;
+				}
+			}
+			else {
+				this.element.innerHTML = '<span class="notes-placeholder">No notes on this slide.</span>';
+			}
 
 		}
 
