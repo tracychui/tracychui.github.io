@@ -39,6 +39,33 @@ export default class SlideContent {
 	}
 
 	/**
+	 * Sanitizes media URLs used in src attributes.
+	 * Allows http(s) and relative URLs, blocks unsafe protocols.
+	 *
+	 * @param {string} url
+	 * @returns {string|null}
+	 */
+	sanitizeMediaUrl( url ) {
+
+		if( typeof url !== 'string' ) return null;
+
+		const trimmedUrl = url.trim();
+		if( !trimmedUrl ) return null;
+
+		try {
+			const parsedUrl = new URL( trimmedUrl, window.location.href );
+			if( parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:' ) {
+				return parsedUrl.toString();
+			}
+		}
+		catch( e ) {
+			return null;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Called when the given slide is within the configured view
 	 * distance. Shows the slide element and loads any content
 	 * that is set to load lazily (data-src).
@@ -128,7 +155,12 @@ export default class SlideContent {
 
 					// Support comma separated lists of video sources
 					backgroundVideo.split( ',' ).forEach( source => {
-						video.innerHTML += '<source src="'+ source +'">';
+						const sanitizedSource = this.sanitizeMediaUrl( source );
+						if( sanitizedSource ) {
+							const sourceElement = document.createElement( 'source' );
+							sourceElement.setAttribute( 'src', sanitizedSource );
+							video.appendChild( sourceElement );
+						}
 					} );
 
 					backgroundContent.appendChild( video );
